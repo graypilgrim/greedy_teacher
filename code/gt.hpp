@@ -14,6 +14,8 @@ public:
 	uint64_t CountCoockies();
 
 private:
+	uint64_t FindFirstLocalMin();
+
 	const uint64_t pupilsNo;
 	vector64_t pupilsMarks;
 	vector64_t pupilsCoockies;
