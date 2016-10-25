@@ -1,4 +1,4 @@
-#include "gt.hpp"
+#include "GreedyTeacher.hpp"
 
 GreedyTeacher::GreedyTeacher(uint64_t pupilsNo)
 	:pupilsNo(pupilsNo)

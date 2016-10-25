@@ -1,5 +1,5 @@
 #include <iostream>
-#include "gt.hpp"
+#include "GreedyTeacher.hpp"
 
 int main()
 {

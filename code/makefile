@@ -1,23 +1,18 @@
 CXX = g++
-CXXFLAGS = -Wall -Werror -pedantic
+CXXFLAGS = -c -Wall -Werror -pedantic
 LINKFLAGS = --std=c++11
 
-lib_SOURCES = \
-		gt.hpp
-
-lib_OBJECTS=$(lib_SOURCES:.cpp=.o)
-
 SOURCES = \
-		gt.cpp \
+		GreedyTeacher.cpp \
 		main.cpp
 
 OBJECTS=$(SOURCES:.cpp=.o)
 
 main: $(OBJECTS)
-	$(CXX) -o $@ $^ $(LINKFLAGS)
+	$(CXX) $(LINKFLAGS) $^ -o $@ 
 
 %.o : %.cpp
-	$(CXX) -c -o $@  $< $(CXXFLAGS)
+	$(CXX) $(CXXFLAGS) $< -o $@
 
 clean:
 	rm -f *.o
