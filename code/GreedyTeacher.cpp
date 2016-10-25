@@ -48,7 +48,7 @@ void GreedyTeacher::PrintMarks()
 		return;
 
 	for (auto it : pupilsMarks)
-		std::cout << *it << " ";
+		std::cout << it << " ";
 	std::cout << std::endl;
 }
 
@@ -58,7 +58,7 @@ void GreedyTeacher::PrintCoockies()
 		return;
 
 	for (auto it : pupilsCoockies)
-		std::cout << *it << " ";
+		std::cout << it << " ";
 	std::cout << std::endl;
 }
 
@@ -73,7 +73,7 @@ uint64_t GreedyTeacher::FindLocalMin(uint64_t begin)
 
 bool GreedyTeacher::VerifyPupilsNo()
 {
-	if (pupilsMarks.size() != pupilsNo)
+	if (pupilsMarks.size() != pupilsNo) {
 		std::cerr << "Invalid marks number!" << std::endl;
 		return false;
 	}
