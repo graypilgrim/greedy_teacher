@@ -1,7 +1,7 @@
 #include "gt.hpp"
 
 GreedyTeacher::GreedyTeacher(uint64_t pupilsNo)
-	:this.pupilsNo(pupilsNo)
+	:pupilsNo(pupilsNo)
 {
 	pupilsMarks.reserve(pupilsNo);
 	pupilsCoockies.reserve(pupilsNo);
@@ -14,41 +14,69 @@ void GreedyTeacher::AddPupil(uint64_t mark)
 
 uint64_t GreedyTeacher::CountCoockies()
 {
-		uint64_t coockies_no = 0;
-		uint64_t firstLocalMin = FindFirstLocalMin();
+	if (!VerifyPupilsNo())
+		return 0;
 
-		for (auto i = firstLocalMin; i > 0; --i)
+	uint64_t coockies_no = 0;
+
+	uint64_t it = 0;
+	while (it < pupilsNo)
+	{
+		it = FindLocalMin(it);
+		pupilsCoockies[it] = 1;
+		coockies_no += 1;
+
+		for (uint64_t i = it; i > 0; --i)
 		{
 			if (pupilsMarks[i - 1] > pupilsMarks[i])
 				pupilsCoockies[i - 1] = pupilsCoockies[i] + 1;
 			else
 				pupilsCoockies[i - 1] = pupilsCoockies[i];
 
-			++coockies_no;
+			coockies_no += pupilsCoockies[i - 1];
 		}
 
-		for (auto i = firstLocalMin + 1; i < pupilsNo; ++i)
-		{
-			if (pupilsMarks[i] > pupilsMarks[i - 1])
-				pupilsCoockies[i] = pupilsCoockies[i - 1] + 1;
+		++it;
+	}
 
-			if (pupilsMarks[i] < pupilsMarks[i - 1])
-				pupilsCoockies[i] = 1;
-
-			if (pupilsMarks[i] == pupilsMarks[i - 1])
-				pupilsCoockies[i] = pupilsCoockies[i - 1];
-
-			++coockies_no;
-		}
-
-		return coockies_no;
+	return coockies_no;
 }
 
-uint64_t GreedyTeacher::FindFirstLocalMin()
+void GreedyTeacher::PrintMarks()
 {
-	for (uint64_t i = 1; i < pupilsNo; ++i)
+	if (!VerifyPupilsNo())
+		return;
+
+	for (auto it : pupilsMarks)
+		std::cout << *it << " ";
+	std::cout << std::endl;
+}
+
+void GreedyTeacher::PrintCoockies()
+{
+	if (!VerifyPupilsNo())
+		return;
+
+	for (auto it : pupilsCoockies)
+		std::cout << *it << " ";
+	std::cout << std::endl;
+}
+
+uint64_t GreedyTeacher::FindLocalMin(uint64_t begin)
+{
+	for (uint64_t i = begin; i < pupilsNo; ++i)
 		if (pupilsMarks[i] > pupilsMarks[i - 1])
 			return i;
 
-	return 0;
+	return pupilsNo - 1;
+}
+
+bool GreedyTeacher::VerifyPupilsNo()
+{
+	if (pupilsMarks.size() != pupilsNo)
+		std::cerr << "Invalid marks number!" << std::endl;
+		return false;
+	}
+
+	return true;
 }

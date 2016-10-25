@@ -12,9 +12,12 @@ public:
 	GreedyTeacher(uint64_t pupilsNo);
 	void AddPupil(uint64_t mark);
 	uint64_t CountCoockies();
+	void PrintMarks();
+	void PrintCoockies();
 
 private:
-	uint64_t FindFirstLocalMin();
+	uint64_t FindLocalMin(uint64_t begin);
+	bool VerifyPupilsNo();
 
 	const uint64_t pupilsNo;
 	vector64_t pupilsMarks;
