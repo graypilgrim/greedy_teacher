@@ -10,6 +10,7 @@ GreedyTeacher::GreedyTeacher(uint64_t pupilsNo)
 void GreedyTeacher::AddPupil(uint64_t mark)
 {
 	pupilsMarks.push_back(mark);
+	pupilsCoockies.push_back(0);
 }
 
 uint64_t GreedyTeacher::CountCoockies()
@@ -23,18 +24,7 @@ uint64_t GreedyTeacher::CountCoockies()
 	while (it < pupilsNo)
 	{
 		it = FindLocalMin(it);
-		pupilsCoockies[it] = 1;
-		coockies_no += 1;
-
-		for (uint64_t i = it; i > 0; --i)
-		{
-			if (pupilsMarks[i - 1] > pupilsMarks[i])
-				pupilsCoockies[i - 1] = pupilsCoockies[i] + 1;
-			else
-				pupilsCoockies[i - 1] = pupilsCoockies[i];
-
-			coockies_no += pupilsCoockies[i - 1];
-		}
+		std::cout << "Local min: " << it << std::endl;
 
 		++it;
 	}
@@ -49,6 +39,7 @@ void GreedyTeacher::PrintMarks()
 
 	for (auto it : pupilsMarks)
 		std::cout << it << " ";
+
 	std::cout << std::endl;
 }
 
@@ -59,16 +50,20 @@ void GreedyTeacher::PrintCoockies()
 
 	for (auto it : pupilsCoockies)
 		std::cout << it << " ";
+
 	std::cout << std::endl;
 }
 
 uint64_t GreedyTeacher::FindLocalMin(uint64_t begin)
 {
+	if (begin == 0 && pupilsMarks[begin] < pupilsMarks[begin + 1])
+		return begin;
+
 	for (uint64_t i = begin; i < pupilsNo; ++i)
-		if (pupilsMarks[i] > pupilsMarks[i - 1])
+		if (pupilsMarks[i] < pupilsMarks[i + 1] && pupilsMarks[i] < pupilsMarks[i - 1])
 			return i;
 
-	return pupilsNo - 1;
+	return pupilsNo;
 }
 
 bool GreedyTeacher::VerifyPupilsNo()
