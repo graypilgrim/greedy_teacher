@@ -21,8 +21,8 @@ int main()
 			gt.AddPupil(input);
 		}
 
-		gt.CountCoockies();
+		std::cout << gt.CountCoockies() << std::endl;
 		gt.PrintMarks();
-		//gt.PrintCoockies();
+		gt.PrintCoockies();
 	}
 }

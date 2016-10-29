@@ -18,18 +18,24 @@ uint64_t GreedyTeacher::CountCoockies()
 	if (!VerifyPupilsNo())
 		return 0;
 
-	uint64_t coockies_no = 0;
+	uint64_t coockiesNo = 0;
 
-	uint64_t it = 0;
-	while (it < pupilsNo)
+	uint64_t rbegin = 0;
+	uint64_t rend = 0;
+	while (rbegin < pupilsNo)
 	{
-		it = FindLocalMin(it);
-		std::cout << "Local min: " << it << std::endl;
+		rbegin = FindLocalMin(rbegin);
+		// std::cout << "Local min: " << rbegin << std::endl;
 
-		++it;
+		if (rbegin == pupilsNo)
+			coockiesNo += GiveCoockies(rend);
+		else
+			coockiesNo += GiveCoockiesReverse(rbegin, rend);
+
+		rend = ++rbegin;
 	}
 
-	return coockies_no;
+	return coockiesNo;
 }
 
 void GreedyTeacher::PrintMarks()
@@ -64,6 +70,68 @@ uint64_t GreedyTeacher::FindLocalMin(uint64_t begin)
 			return i;
 
 	return pupilsNo;
+}
+
+uint64_t GreedyTeacher:: GiveCoockies(uint64_t begin)
+{
+	// std::cout << "GiveCoockies" << std::endl;
+	uint64_t coockies = 0;
+
+	if (begin == 0)
+	{
+		pupilsCoockies[begin] = 1;
+		++begin;
+		++coockies;
+	}
+
+	for (uint64_t i = begin; i < pupilsNo; ++i)
+	{
+		if (pupilsMarks[i] > pupilsMarks[i - 1])
+			pupilsCoockies[i] = pupilsCoockies[i - 1] + 1;
+		else if (pupilsMarks[i] < pupilsMarks[i - 1])
+			pupilsCoockies[i] = pupilsCoockies[i - 1] - 1;
+		else
+			pupilsCoockies[i] = pupilsCoockies[i - 1] ;
+
+		coockies += pupilsCoockies[i];
+	}
+
+	return coockies;
+}
+
+uint64_t GreedyTeacher::GiveCoockiesReverse(uint64_t rbegin, uint64_t rend)
+{
+	// std::cout << "GiveCoockiesReverse" << std::endl;
+	// std::cout << rbegin << " " << rend << std::endl;
+
+	pupilsCoockies[rbegin] = 1;
+	uint64_t coockies = 1;
+
+	if (rbegin == 0)
+		return coockies;
+
+	--rbegin;
+
+	// std::cout << rbegin << " " << rend << std::endl;
+
+	while (rbegin >= rend)
+	{
+		if (pupilsMarks[rbegin] > pupilsMarks[rbegin + 1])
+			pupilsCoockies[rbegin] = pupilsCoockies[rbegin + 1] + 1;
+		else if (pupilsMarks[rbegin] < pupilsMarks[rbegin + 1])
+			pupilsCoockies[rbegin] = pupilsCoockies[rbegin + 1] - 1;
+		else
+			pupilsCoockies[rbegin] = pupilsCoockies[rbegin + 1];
+
+		coockies += pupilsCoockies[rbegin];
+
+		if (rbegin == 0)
+			break;
+		else
+			--rbegin;
+	}
+
+	return coockies;
 }
 
 bool GreedyTeacher::VerifyPupilsNo()

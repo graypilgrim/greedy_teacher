@@ -17,6 +17,8 @@ public:
 
 private:
 	uint64_t FindLocalMin(uint64_t begin);
+	uint64_t GiveCoockies(uint64_t begin);
+	uint64_t GiveCoockiesReverse(uint64_t rbegin, uint64_t rend);
 	bool VerifyPupilsNo();
 
 	const uint64_t pupilsNo;

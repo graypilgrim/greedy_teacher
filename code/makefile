@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS = -c -Wall -Werror -pedantic
+CXXFLAGS = -c -Wall -pedantic
 LINKFLAGS = --std=c++11
 
 SOURCES = \
@@ -9,7 +9,7 @@ SOURCES = \
 OBJECTS=$(SOURCES:.cpp=.o)
 
 main: $(OBJECTS)
-	$(CXX) $(LINKFLAGS) $^ -o $@ 
+	$(CXX) $(LINKFLAGS) $^ -o $@
 
 %.o : %.cpp
 	$(CXX) $(CXXFLAGS) $< -o $@
