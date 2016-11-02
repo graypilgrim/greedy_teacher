@@ -1,5 +1,6 @@
 #include <iostream>
 #include "GreedyTeacher.hpp"
+#include "Tester.hpp"
 
 int main()
 {
