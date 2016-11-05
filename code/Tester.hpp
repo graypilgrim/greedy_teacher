@@ -2,19 +2,21 @@
 #define TESTER_HPP_
 
 #include "GreedyTeacher.hpp"
+#include <chrono>
 
 class Tester
 {
 public:
-	Tester(uint64_t size, uint64_t amount)
-	:testsSize(size), testsNo(amount)
-	{}
-
-	void ShowData();
+	Tester();
+	Tester(size_t size, size_t amount);
+	void RunManualTests();
 
 private:
-	uint64_t testsSize;
-	uint64_t testsNo;
+	long MeasureSolvingTime(GreedyTeacher &gt);
+
+	size_t testsNo;
+	size_t testsSize;
+
 };
 
 #endif

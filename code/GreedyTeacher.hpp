@@ -4,24 +4,27 @@
 #include <iostream>
 #include <vector>
 
-typedef std::vector<uint64_t> vector64_t;
+typedef std::vector<size_t> vector64_t;
 
 class GreedyTeacher
 {
 public:
-	GreedyTeacher(uint64_t pupilsNo);
-	void AddPupil(uint64_t mark);
-	uint64_t CountCoockies();
+	GreedyTeacher(size_t pupilsNo);
+	void AddPupil(size_t mark);
+	void CountCoockies();
+	size_t GetCoockies();
 	void PrintMarks();
 	void PrintCoockies();
 
 private:
-	uint64_t FindLocalMin(uint64_t begin);
-	uint64_t GiveCoockies(uint64_t begin);
-	uint64_t GiveCoockiesReverse(uint64_t rbegin, uint64_t rend);
+	size_t FindLocalMin(size_t begin);
+	size_t GiveCoockies(size_t begin);
+	size_t GiveCoockiesReverse(size_t rbegin, size_t rend);
 	bool VerifyPupilsNo();
 
-	const uint64_t pupilsNo;
+	const size_t pupilsNo;
+	bool calculated;
+	long coockies;
 	vector64_t pupilsMarks;
 	vector64_t pupilsCoockies;
 };

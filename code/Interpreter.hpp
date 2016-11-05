@@ -6,13 +6,17 @@
 class Interpreter
 {
 public:
-	Interpreter(int argc, char *argv[])
-	:argumentsNo(argc), arguments(argv)
-	{}
+	Interpreter(int argc, char *argv[]);
+	void RunTests();
 
 private:
-	int argumentsNo;
-	char **arguments;
+	void PrintHelp();
+	void RunManualTester();
+
+	bool manual = false;
+	long testsNo;
+	long childrenNo;
+	long maxResult;
 };
 
 #endif

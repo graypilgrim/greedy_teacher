@@ -10,7 +10,7 @@ SOURCES = \
 
 OBJECTS=$(SOURCES:.cpp=.o)
 
-main: $(OBJECTS)
+greedy-teacher: $(OBJECTS)
 	$(CXX) $(LINKFLAGS) $^ -o $@
 	@rm -f *.o *.gch
 	@echo Built completed
@@ -19,7 +19,8 @@ main: $(OBJECTS)
 	$(CXX) $(CXXFLAGS) $< -o $@
 
 clean:
-	@rm -f main
+	@rm -f greedy-teacher
+	@rm -f *.o *.gch
 
 .PHONY:
 	clean
