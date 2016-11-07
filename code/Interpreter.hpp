@@ -7,16 +7,19 @@ class Interpreter
 {
 public:
 	Interpreter(int argc, char *argv[]);
-	void RunTests();
+	void AnalizeCommands();
+	void RunTester();
 
 private:
 	void PrintHelp();
-	void RunManualTester();
 
-	bool manual = false;
-	long testsNo;
-	long childrenNo;
-	long maxResult;
+	int argumentsNo;
+	char **arguments;
+
+	bool manualTests;
+	size_t testsNo;
+	size_t pupilsNo;
+	size_t maxMark;
 };
 
 #endif

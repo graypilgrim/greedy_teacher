@@ -5,29 +5,36 @@
 #include <getopt.h>
 
 Interpreter::Interpreter(int argc, char *argv[])
-	:manual(true), testsNo(0), childrenNo(0), maxResult(0)
+	:argumentsNo(argc), arguments(argv)
+{}
+
+void Interpreter::AnalizeCommands()
 {
+	manualTests = true;
+	testsNo = 0;
+	pupilsNo = 0;
+	maxMark = 0;
+
 	int opt;
 
-	while ((opt = getopt(argc, argv, "ha:c:r:")) != EOF)
+	while ((opt = getopt(argumentsNo, arguments, "ha:c:r:")) != EOF)
 	{
 		switch (opt) {
 		case 'h':
 			PrintHelp();
 			exit(0);
-			break;
 
 		case 'a':
-			manual = false;
+			manualTests = false;
 			testsNo = atol(optarg);
 			break;
 
 		case 'c':
-			childrenNo = atol(optarg);
+			pupilsNo = atol(optarg);
 			break;
 
 		case 'r':
-			maxResult = atol(optarg);
+			maxMark = atol(optarg);
 			break;
 
 		case '?':
@@ -39,8 +46,26 @@ Interpreter::Interpreter(int argc, char *argv[])
 		}
 	}
 
-	if (manual == true)
-		RunManualTester();
+	if (!manualTests && (testsNo == 0 || pupilsNo == 0 || maxMark == 0))
+	{
+		std::cout << "If automatic tests are chosen, specify all parameters" << std::endl;
+		std::cout << "Use \"-h\" to see more details" << std::endl;
+		exit(-1);
+	}
+}
+
+void Interpreter::RunTester()
+{
+	if (manualTests)
+	{
+		Tester tester;
+		tester.RunManualTests();
+	}
+	else
+	{
+		Tester tester(testsNo, pupilsNo, maxMark);
+		tester.RunAutomaticTests();
+	}
 }
 
 void Interpreter::PrintHelp()
@@ -51,10 +76,4 @@ void Interpreter::PrintHelp()
 	std::cout << "-a=TESTS_NO\trun TESTS_NO automatic tests" << std::endl;
 	std::cout << "-c=CHILDREN_NO\tspecify number of children for automatic tests" << std::endl;
 	std::cout << "-r=MAX_RESULT\tspecify the highest mark that child can get" << std::endl;
-}
-
-void Interpreter::RunManualTester()
-{
-	Tester tester;
-	tester.RunManualTests();
 }

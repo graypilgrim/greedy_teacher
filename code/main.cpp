@@ -6,4 +6,6 @@
 int main(int argc, char *argv[])
 {
 	Interpreter interpreter(argc, argv);
+	interpreter.AnalizeCommands();
+	interpreter.RunTester();
 }
