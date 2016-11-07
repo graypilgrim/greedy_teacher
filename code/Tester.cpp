@@ -32,8 +32,8 @@ void Tester::RunManualTests()
 		std::cout << "Result: " << gt.GetCoockies() << std::endl;
 		std::cout << "Solving time: " << solvingTime << "\n" << std::endl;
 
-		// gt.PrintMarks();
-		// gt.PrintCoockies();
+		 gt.PrintMarks();
+		 gt.PrintCoockies();
 	}
 }
 
@@ -52,7 +52,7 @@ void Tester::RunAutomaticTests()
 
 		for (size_t j = 0; j < pupilsNo; ++j)
 		{
-			size_t mark = rand() % maxMark;
+			size_t mark = rand() % maxMark + 1;
 			gt.AddPupil(mark);
 		}
 
@@ -62,8 +62,8 @@ void Tester::RunAutomaticTests()
 		std::cout << "Result: " << gt.GetCoockies() << std::endl;
 		std::cout << "Solving time: " << solvingTime << "\n" << std::endl;
 
-		// gt.PrintMarks();
-		// gt.PrintCoockies();
+		 gt.PrintMarks();
+		 gt.PrintCoockies();
 	}
 }
 

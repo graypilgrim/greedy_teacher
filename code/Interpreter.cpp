@@ -38,7 +38,7 @@ void Interpreter::AnalizeCommands()
 			break;
 
 		case '?':
-			PrintHelp();
+			exit(-1);
 
 		default:
 			std::cout << std::endl;
