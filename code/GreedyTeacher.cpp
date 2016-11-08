@@ -25,7 +25,6 @@ void GreedyTeacher::CountCoockies()
 	while (rbegin < pupilsNo)
 	{
 		rbegin = FindLocalMin(rbegin);
-		// std::cout << "Local min: " << rbegin << std::endl;
 
 		if (rbegin == pupilsNo)
 			coockiesNo += GiveCoockies(rend);
@@ -84,7 +83,6 @@ size_t GreedyTeacher::FindLocalMin(size_t begin)
 
 size_t GreedyTeacher:: GiveCoockies(size_t begin)
 {
-	// std::cout << "GiveCoockies" << std::endl;
 	long coockies = 0;
 
 	if (begin == 0)
@@ -111,9 +109,6 @@ size_t GreedyTeacher:: GiveCoockies(size_t begin)
 
 size_t GreedyTeacher::GiveCoockiesReverse(size_t rbegin, size_t rend)
 {
-	// std::cout << "GiveCoockiesReverse" << std::endl;
-	// std::cout << rbegin << " " << rend << std::endl;
-
 	pupilsCoockies[rbegin] = 1;
 	long coockies = 1;
 
@@ -121,8 +116,6 @@ size_t GreedyTeacher::GiveCoockiesReverse(size_t rbegin, size_t rend)
 		return coockies;
 
 	--rbegin;
-
-	// std::cout << rbegin << " " << rend << std::endl;
 
 	while (rbegin >= rend)
 	{

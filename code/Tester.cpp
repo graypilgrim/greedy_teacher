@@ -46,7 +46,6 @@ void Tester::RunAutomaticTests()
 	for (size_t i = 0; i < testsNo; ++i)
 	{
 		long randDelta = CalculateDelta();
-		std::cout << "randDelta: " << randDelta << std::endl;
 		size_t pupilsNo = testSize + randDelta;
 		GreedyTeacher gt(pupilsNo);
 
@@ -57,7 +56,7 @@ void Tester::RunAutomaticTests()
 		}
 
 		auto solvingTime = MeasureSolvingTime(gt);
-		std::cout << "Test " << i << std::endl;
+		std::cout << ">>Test " << i << std::endl;
 		std::cout << "Test size: " << pupilsNo << std::endl;
 		std::cout << "Result: " << gt.GetCoockies() << std::endl;
 		std::cout << "Solving time: " << solvingTime << "\n" << std::endl;
