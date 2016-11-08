@@ -76,7 +76,7 @@ size_t GreedyTeacher::FindLocalMin(size_t begin)
 		return begin;
 
 	for (size_t i = begin; i < pupilsNo; ++i)
-		if (pupilsMarks[i] < pupilsMarks[i + 1] && pupilsMarks[i] < pupilsMarks[i - 1])
+		if (pupilsMarks[i] < pupilsMarks[i + 1] && pupilsMarks[i] <= pupilsMarks[i - 1])
 			return i;
 
 	return pupilsNo;
