@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS = -c -Wall -pedantic
+CXXFLAGS = -c -Wall -pedantic -o2
 
 SOURCES = \
 		GreedyTeacher.cpp \
