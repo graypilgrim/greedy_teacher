@@ -15,6 +15,7 @@ public:
 	size_t GetCoockies();
 	void PrintMarks();
 	void PrintCoockies();
+	size_t GetPupilsNo();
 
 private:
 	size_t FindLocalMin(size_t begin);

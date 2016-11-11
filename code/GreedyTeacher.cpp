@@ -113,6 +113,11 @@ void GreedyTeacher::PrintCoockies()
 	std::cout << std::endl;
 }
 
+size_t GreedyTeacher::GetPupilsNo()
+{
+	return pupilsNo;
+}
+
 size_t GreedyTeacher::FindLocalMin(size_t begin)
 {
 	if (begin == 0 && pupilsMarks[begin] < pupilsMarks[begin + 1])

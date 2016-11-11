@@ -28,14 +28,7 @@ void Tester::RunManualTests()
 		}
 
 		auto solvingTime = MeasureSolvingTime(gt);
-		std::cout << "Test size: " << pupilsNo << std::endl;
-		std::cout << "Result: " << gt.GetCoockies() << std::endl;
-		std::cout << "Solving time: " << solvingTime << std::endl;
-
-		 gt.PrintMarks();
-		 gt.PrintCoockies();
-
-		 std::cout <<std::endl;
+		PrintFormatedResult(gt, solvingTime, i);
 	}
 }
 
@@ -58,15 +51,7 @@ void Tester::RunAutomaticTests()
 		}
 
 		auto solvingTime = MeasureSolvingTime(gt);
-		std::cout << ">>Test " << i << std::endl;
-		std::cout << "Test size: " << pupilsNo << std::endl;
-		std::cout << "Result: " << gt.GetCoockies() << std::endl;
-		std::cout << "Solving time: " << solvingTime << std::endl;
-
-		 gt.PrintMarks();
-		 gt.PrintCoockies();
-
-		 std::cout << std::endl;
+		PrintFormatedResult(gt, solvingTime, i);
 	}
 }
 
@@ -92,4 +77,12 @@ long Tester::CalculateDelta()
 	long delta = (rand() % changeRange) - (changeRange / 2);
 
 	return delta;
+}
+
+void Tester::PrintFormatedResult(GreedyTeacher &gt, long solvingTime, size_t testNo)
+{
+	std::cout << ">>Test " << testNo;
+	std::cout << "\tTest size: " << gt.GetPupilsNo();
+	std::cout << "\tResult: " << gt.GetCoockies();
+	std::cout << "\tSolving time: " << solvingTime << std::endl;
 }
