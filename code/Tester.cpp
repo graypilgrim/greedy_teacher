@@ -38,6 +38,7 @@ void Tester::RunAutomaticTests()
 
 	std::cout << "Automatic tests suite\n" << std::endl;
 
+	long long testsSumTime = 0;
 	for (size_t i = 0; i < testsNo; ++i)
 	{
 		long randDelta = CalculateDelta();
@@ -51,8 +52,11 @@ void Tester::RunAutomaticTests()
 		}
 
 		auto solvingTime = MeasureSolvingTime(gt);
+		testsSumTime += solvingTime;
 		PrintFormatedResult(gt, solvingTime, i);
 	}
+
+	std::cout << "Test suite mean time: " << testsSumTime/testsNo << std::endl;
 }
 
 long Tester::MeasureSolvingTime(GreedyTeacher &gt)

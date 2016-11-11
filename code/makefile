@@ -1,6 +1,5 @@
 CXX = g++
 CXXFLAGS = -c -Wall -pedantic
-LINKFLAGS = --std=c++11
 
 SOURCES = \
 		GreedyTeacher.cpp \
@@ -11,7 +10,7 @@ SOURCES = \
 OBJECTS=$(SOURCES:.cpp=.o)
 
 greedy-teacher: $(OBJECTS)
-	$(CXX) $(LINKFLAGS) $^ -o $@
+	$(CXX) $^ -o $@
 	@rm -f *.o *.gch
 	@echo Built completed
 
