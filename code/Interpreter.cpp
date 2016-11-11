@@ -48,10 +48,13 @@ void Interpreter::AnalizeCommands()
 
 	if (!manualTests && (testsNo == 0 || pupilsNo == 0 || maxMark == 0))
 	{
-		std::cout << "If automatic tests are chosen, specify all parameters" << std::endl;
+		std::cout << "If automatic tests are chosen, specify all parameters"<< std::endl;
 		std::cout << "Use \"-h\" to see more details" << std::endl;
 		exit(-1);
 	}
+
+	if (pupilsNo > CHILDREN_LIMIT)
+		std::cout << "WARNING: Results may be misleading. Amount of children is too high" << std::endl;
 }
 
 void Interpreter::RunTester()

@@ -13,6 +13,8 @@ public:
 private:
 	void PrintHelp();
 
+	const size_t CHILDREN_LIMIT = 15000000000;
+
 	int argumentsNo;
 	char **arguments;
 

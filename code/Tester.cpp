@@ -88,5 +88,5 @@ void Tester::PrintFormatedResult(GreedyTeacher &gt, long solvingTime, size_t tes
 	std::cout << ">>Test " << testNo;
 	std::cout << "\tTest size: " << gt.GetPupilsNo();
 	std::cout << "\tResult: " << gt.GetCoockies();
-	std::cout << "\tSolving time: " << solvingTime << std::endl;
+	std::cout << "\tSolving time: " << solvingTime  << " us" << std::endl;
 }
