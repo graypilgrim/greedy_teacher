@@ -1,4 +1,5 @@
 #include "GreedyTeacher.hpp"
+#include <algorithm>
 
 GreedyTeacher::GreedyTeacher(size_t pupilsNo)
 	:pupilsNo(pupilsNo), calculated(false)
@@ -15,27 +16,70 @@ void GreedyTeacher::AddPupil(size_t mark)
 
 void GreedyTeacher::CountCoockies()
 {
-	if (!VerifyPupilsNo())
-		return;
+	GiveCoockies();
+	GiveCoockiesReverse();
 
-	long coockiesNo = 0;
+	coockies = 0;
 
-	size_t rbegin = 0;
-	size_t rend = 0;
-	while (rbegin < pupilsNo)
-	{
-		rbegin = FindLocalMin(rbegin);
-
-		if (rbegin == pupilsNo)
-			coockiesNo += GiveCoockies(rend);
-		else
-			coockiesNo += GiveCoockiesReverse(rbegin, rend);
-
-		rend = ++rbegin;
-	}
+	for (auto i : pupilsCoockies)
+		coockies += i;
 
 	calculated = true;
-	coockies = coockiesNo;
+}
+
+void GreedyTeacher::GiveCoockies()
+{
+	pupilsCoockies[0] = 1;
+
+	for (size_t i = 1; i < pupilsNo; ++i)
+	{
+		if (IsLocalMinimum(i))
+		{
+			pupilsCoockies[i] = 1;
+			continue;
+		}
+
+		if (pupilsMarks[i] > pupilsMarks[i-1])
+			pupilsCoockies[i] = pupilsCoockies[i-1] + 1;
+
+		if (pupilsMarks[i] == pupilsMarks[i-1])
+			pupilsCoockies[i] = pupilsCoockies[i-1];
+
+		if (pupilsMarks[i] < pupilsMarks[i-1])
+			pupilsCoockies[i] = std::max(pupilsCoockies[i-1] - 1, (size_t)1);
+	}
+}
+
+void GreedyTeacher::GiveCoockiesReverse()
+{
+	for (size_t i = pupilsNo - 2; i >= 0; --i)
+	{
+		if (IsLocalMinimum(i))
+		{
+			pupilsCoockies[i] = 1;
+
+			if (i != 0)
+				continue;
+			else
+				break;
+		}
+
+		size_t tempCoockies;
+
+		if (pupilsMarks[i] > pupilsMarks[i+1])
+			tempCoockies = pupilsCoockies[i+1] + 1;
+
+		if (pupilsMarks[i] == pupilsMarks[i+1])
+			tempCoockies = pupilsCoockies[i+1];
+
+		if (pupilsMarks[i] < pupilsMarks[i+1])
+			tempCoockies = std::max(pupilsCoockies[i+1] - 1, (size_t)1);
+
+		pupilsCoockies[i] = std::max(tempCoockies, pupilsCoockies[i]);
+
+		if (i == 0)
+			break;
+	}
 }
 
 size_t GreedyTeacher::GetCoockies()
@@ -49,7 +93,7 @@ size_t GreedyTeacher::GetCoockies()
 
 void GreedyTeacher::PrintMarks()
 {
-	if (!VerifyPupilsNo())
+	if (!CorrectPupilsNo())
 		return;
 
 	for (auto it : pupilsMarks)
@@ -60,7 +104,7 @@ void GreedyTeacher::PrintMarks()
 
 void GreedyTeacher::PrintCoockies()
 {
-	if (!VerifyPupilsNo())
+	if (!CorrectPupilsNo())
 		return;
 
 	for (auto it : pupilsCoockies)
@@ -81,63 +125,7 @@ size_t GreedyTeacher::FindLocalMin(size_t begin)
 	return pupilsNo;
 }
 
-size_t GreedyTeacher:: GiveCoockies(size_t begin)
-{
-	long coockies = 0;
-
-	if (begin == 0)
-	{
-		pupilsCoockies[begin] = 1;
-		++begin;
-		++coockies;
-	}
-
-	for (size_t i = begin; i < pupilsNo; ++i)
-	{
-		if (pupilsMarks[i] > pupilsMarks[i - 1])
-			pupilsCoockies[i] = pupilsCoockies[i - 1] + 1;
-		else if (pupilsMarks[i] < pupilsMarks[i - 1])
-			pupilsCoockies[i] = pupilsCoockies[i - 1] - 1;
-		else
-			pupilsCoockies[i] = pupilsCoockies[i - 1] ;
-
-		coockies += pupilsCoockies[i];
-	}
-
-	return coockies;
-}
-
-size_t GreedyTeacher::GiveCoockiesReverse(size_t rbegin, size_t rend)
-{
-	pupilsCoockies[rbegin] = 1;
-	long coockies = 1;
-
-	if (rbegin == 0)
-		return coockies;
-
-	--rbegin;
-
-	while (rbegin >= rend)
-	{
-		if (pupilsMarks[rbegin] > pupilsMarks[rbegin + 1])
-			pupilsCoockies[rbegin] = pupilsCoockies[rbegin + 1] + 1;
-		else if (pupilsMarks[rbegin] < pupilsMarks[rbegin + 1])
-			pupilsCoockies[rbegin] = pupilsCoockies[rbegin + 1] - 1;
-		else
-			pupilsCoockies[rbegin] = pupilsCoockies[rbegin + 1];
-
-		coockies += pupilsCoockies[rbegin];
-
-		if (rbegin == 0)
-			break;
-		else
-			--rbegin;
-	}
-
-	return coockies;
-}
-
-bool GreedyTeacher::VerifyPupilsNo()
+bool GreedyTeacher::CorrectPupilsNo()
 {
 	if (pupilsMarks.size() != pupilsNo) {
 		std::cerr << "Invalid marks number!" << std::endl;
@@ -145,4 +133,18 @@ bool GreedyTeacher::VerifyPupilsNo()
 	}
 
 	return true;
+}
+
+bool GreedyTeacher::IsLocalMinimum(size_t index)
+{
+	if (index == 0 && pupilsMarks[index] < pupilsMarks[index + 1])
+		return true;
+
+	if (index == (pupilsNo - 1) && pupilsMarks[index] <= pupilsMarks[index - 1])
+		return true;
+
+	if (pupilsMarks[index] < pupilsMarks[index + 1] && pupilsMarks[index] < pupilsMarks[index - 1])
+		return true;
+
+	return false;
 }

@@ -18,9 +18,10 @@ public:
 
 private:
 	size_t FindLocalMin(size_t begin);
-	size_t GiveCoockies(size_t begin);
-	size_t GiveCoockiesReverse(size_t rbegin, size_t rend);
-	bool VerifyPupilsNo();
+	void GiveCoockies();
+	void GiveCoockiesReverse();
+	bool CorrectPupilsNo();
+	bool IsLocalMinimum(size_t index);
 
 	const size_t pupilsNo;
 	bool calculated;

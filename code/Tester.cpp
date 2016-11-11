@@ -30,10 +30,12 @@ void Tester::RunManualTests()
 		auto solvingTime = MeasureSolvingTime(gt);
 		std::cout << "Test size: " << pupilsNo << std::endl;
 		std::cout << "Result: " << gt.GetCoockies() << std::endl;
-		std::cout << "Solving time: " << solvingTime << "\n" << std::endl;
+		std::cout << "Solving time: " << solvingTime << std::endl;
 
 		 gt.PrintMarks();
 		 gt.PrintCoockies();
+
+		 std::cout <<std::endl;
 	}
 }
 
@@ -59,10 +61,12 @@ void Tester::RunAutomaticTests()
 		std::cout << ">>Test " << i << std::endl;
 		std::cout << "Test size: " << pupilsNo << std::endl;
 		std::cout << "Result: " << gt.GetCoockies() << std::endl;
-		std::cout << "Solving time: " << solvingTime << "\n" << std::endl;
+		std::cout << "Solving time: " << solvingTime << std::endl;
 
 		 gt.PrintMarks();
 		 gt.PrintCoockies();
+
+		 std::cout << std::endl;
 	}
 }
 
