@@ -3,6 +3,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[top=3cm, bottom=3cm, left=3cm, right=3cm]{geometry}
 \usepackage{secdot}
+\sectiondot{subsection}
 \usepackage{scrextend}
 \usepackage{booktabs}
 \usepackage{array}
@@ -12,7 +13,8 @@
 \usepackage{listings}
 \usepackage{parskip}
 \addtokomafont{labelinglabel}{\sffamily}
-
+\usepackage{graphicx}
+\graphicspath{ {./} }
 \title{\vspace{7cm}\LARGE Analiza algorytmów\\semestr 16Z\\Projekt: Skąpa nauczycielka}
 \author{\LargeŁukasz Wlazły\\nr albumu: 269365}
 \date{}
@@ -32,7 +34,7 @@
 
 	\subsection{Założenia}
 
-	Dane są ciągi $(s_{m})$ oraz $(r_{m})$, gdzie $m, \in \mathbb{N}$ oznacza liczbę dzieci, takie, że $s_{i}$ oznacza ocenę, a $s_{i}$ ilość ciastek $i$-tego dziecka.
+	Dane są ciągi $(s_{n})$ oraz $(r_{n})$, gdzie $n, \in \mathbb{N}$ oznacza liczbę dzieci, takie, że $s_{i}$ oznacza ocenę, a $s_{i}$ ilość ciastek $i$-tego dziecka.
 	Lokalnym minimum nazywamy taką liczbę $l_m\in\mathbb{N}$, że:
 	\begin{align*}
 		i = l_m \Leftrightarrow
@@ -42,7 +44,7 @@
 		\end{cases}
 	\end{align*}
 
-	Na początku ciąg $(s_{m})$ zawiera dane wejściowe, natomiast ciąg $(r_{m})$ jest wypełniony zerami. \\
+	Na początku ciąg $(s_{n})$ zawiera dane wejściowe, natomiast ciąg $(r_{n})$ jest wypełniony zerami. \\
 
 	Przydział ciastek odbywa się zgodnie z zasadą:
 	\begin{itemize}
@@ -67,12 +69,12 @@
 			\end{align*}
 	\end{itemize}
 
-	Wynikiem działania algorytmu jest ciąg $(r_{m})$, który spełnia następującą zasadę:
+	Wynikiem działania algorytmu jest ciąg $(r_{n})$, który spełnia następującą zasadę:
 	\begin{align*}
 		\forall_{i\in \{2, \ldots, n-1\}}\hspace{1em} (|r_i - r_{i+1}| = 1) \lor (|r_i - r_{i-1}| = 1)
 	\end{align*}
 
-
+	\newpage
 	\subsection{Przebieg algorytmu}
 	marks $\leftarrow$ dane wejściowe \\
 	coockies $\leftarrow$ przydzielone ciastka
@@ -114,13 +116,13 @@
 	\subsection{Złożoność pamięciowa}
 	Przyjmując, że ocena jednego ucznia oraz ilość ciastek jaką dostaje zajmują jedną komórkę pamięci, algorytm posiada złożoność pamięciową określoną wzorem:
 	\begin{align*}
-		M(m) = 2m
+		M(n) = 2n
 	\end{align*}
 
 	\subsection{Złożoność czasowa}
 	Operacją podstawową algorytmu jest wykonanie obliczeń na pojedynczej komórce ciągu wejściowego lub pomocniczego. Wobec tego złożoność czasowa wynosi:
 	\begin{align*}
-		T(m) = 3m
+		T(n) = 3n
 	\end{align*}
 	Zliczanie ciastek mogłoby zostać zoptymalizowane i włączone w dwie poprzednie pętle, jednak spowodowałoby to, że kod stałby się mniej czytelny.
 
@@ -131,21 +133,21 @@
 
 	Jeśli wszystkie dzieci otrzymały taką samą ocenę, to wynikiem działania algorytmu jest:
 	\begin{align*}
-		m
+		n
 	\end{align*}
 
 	\subsection{Ciąg malejący lub rosnący}
 
 	Jeśli oceny dzieci układają się w ciąg rosnący lub malejący, to wynikiem działania algorytmu jest:
 	\begin{align*}
-		\displaystyle\sum_{i=1}^{m} i
+		\displaystyle\sum_{i=1}^{n} i
 	\end{align*}
 
 	\section{Testowanie algorytmu}
 
 	\subsection{Maszyna}
 	\begin{center}
-		\begin{longtable}{c c}
+		\begin{tabular}{c c}
 			\toprule
 			Procesor & Intel Core i5 6200U \\
 			\midrule
@@ -153,18 +155,35 @@
 			\midrule
 			System Operacyjny & Arch Linux\\
 			\bottomrule
-		\end{longtable}
+		\end{tabular}
+	\end{center}
 
 	\subsection{Założenia teoretyczne}
 	Złożoność obliczeniowa algorytmu implikuje wniosek, że n-krotny przyrost liczby dzieci powinien spodować n-krotny wzrost czasu rozwiązywania problemu. Testy zostaną przeprowadzone dla różnej liczby przypadków testowych oraz różnych wartości maksymalnej oceny, jaką mógł otrzymać uczeń.
 
+	\subsection{Procedura testowania}
+	W każdym przypadku zostało uruchomione 1000 testów. Maksymalna ocena, jaką mógł otrzymać uczeń było 400.
+	Dla każdego testu liczba dzieci liczba dzieci jest losowana z przedziału [m - 5\%; m + 5\%].
+	Wszystkie zestawy testów zostały wykonane jako procesy jednowątkowe.
+
+
 	\subsection{Testy}
 
+	\begin{center}
+		\begin{tabular}{c c}
+			\toprule
+				Ilość dzieci & Średni czas [$\mu s$] \\
+			\midrule
+				100 & 21 \\
+				1 000 & 101 \\
+				10 000 & 784 \\
+				100 000 & 7789 \\
+				1 000 000 & 76235 \\
+				8 000 000 & 612973 \\
+			\bottomrule
+		\end{tabular}
+
+		\vspace{3cm}
+		\includegraphics[width=\textwidth]{test_plot.png}
 	\end{center}
-
-
-
-
-
-
 \end{document}
