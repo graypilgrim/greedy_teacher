@@ -1,7 +1,7 @@
 \documentclass{article}
 \usepackage{polski}
 \usepackage[utf8]{inputenc}
-\usepackage[top=3cm, bottom=3cm, left=3cm, right=3cm]{geometry}
+\usepackage{geometry}
 \usepackage{secdot}
 \sectiondot{subsection}
 \usepackage{scrextend}
@@ -114,7 +114,7 @@
 	\end{lstlisting}
 
 	\subsection{Złożoność pamięciowa}
-	Przyjmując, że ocena jednego ucznia oraz ilość ciastek jaką dostaje zajmują jedną komórkę pamięci, algorytm posiada złożoność pamięciową określoną wzorem:
+	Przyjmując, że ocena jednego ucznia oraz ilość ciastek, jaką dostaje, zajmują jedną komórkę pamięci, algorytm posiada złożoność pamięciową określoną wzorem:
 	\begin{align*}
 		M(n) = 2n
 	\end{align*}
@@ -158,10 +158,8 @@
 		\end{tabular}
 	\end{center}
 
-	\subsection{Założenia teoretyczne}
-	Złożoność obliczeniowa algorytmu implikuje wniosek, że n-krotny przyrost liczby dzieci powinien spodować n-krotny wzrost czasu rozwiązywania problemu. Testy zostaną przeprowadzone dla różnej liczby przypadków testowych oraz różnych wartości maksymalnej oceny, jaką mógł otrzymać uczeń.
-
-	\subsection{Procedura testowania}
+	\subsection{Założenia}
+	Złożoność obliczeniowa algorytmu implikuje wniosek, że n-krotny przyrost liczby dzieci powinien spodować n-krotny wzrost czasu rozwiązywania problemu.
 	W każdym przypadku zostało uruchomione 1000 testów. Maksymalna ocena, jaką mógł otrzymać uczeń było 400.
 	Dla każdego testu liczba dzieci liczba dzieci jest losowana z przedziału [m - 5\%; m + 5\%].
 	Wszystkie zestawy testów zostały wykonane jako procesy jednowątkowe.
