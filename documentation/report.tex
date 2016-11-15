@@ -52,9 +52,10 @@
 			\begin{align*}
 				r_i  =
 				\begin{cases}
-					r_{i-1}, & s_{i} = s_{i-1} \\
-					r_{i-1} + 1, & s_{i} > s_{i-1} \\
-					r_{i-1} - 1, & s_{i} < s_{i-1} \\
+					1, & i = 1 \\
+					r_{i-1}, & s_{i} = s_{i-1} \land i \neq 1 \\
+					r_{i-1} + 1, & s_{i} > s_{i-1} \land i \neq 1 \\
+					r_{i-1} - 1, & s_{i} < s_{i-1} \land i \neq 1 \\
 				\end{cases}
 			\end{align*}
 
