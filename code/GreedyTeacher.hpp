@@ -11,6 +11,7 @@ class GreedyTeacher
 public:
 	GreedyTeacher(size_t pupilsNo);
 	void AddPupil(size_t mark);
+	void CountCoockiesBrute();
 	void CountCoockies();
 	size_t GetCoockies();
 	void PrintMarks();

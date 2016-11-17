@@ -19,16 +19,24 @@ void Tester::RunManualTests()
 		std::cin >> pupilsNo;
 
 		GreedyTeacher gt(pupilsNo);
+		GreedyTeacher gtBrute(pupilsNo);
 
 		size_t mark;
 		for (size_t j = 0; j < pupilsNo; ++j)
 		{
 			std::cin >> mark;
 			gt.AddPupil(mark);
+			gtBrute.AddPupil(mark);
 		}
 
+		std::cout << "Dynamic algorithm: " << std::endl;
 		auto solvingTime = MeasureSolvingTime(gt);
 		PrintFormatedResult(gt, solvingTime, i);
+		gt.PrintCoockies();
+
+		std::cout << "Brute algorithm: " << std::endl;
+		gtBrute.CountCoockiesBrute();
+		gtBrute.PrintCoockies();
 	}
 }
 

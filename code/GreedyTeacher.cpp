@@ -11,7 +11,35 @@ GreedyTeacher::GreedyTeacher(size_t pupilsNo)
 void GreedyTeacher::AddPupil(size_t mark)
 {
 	pupilsMarks.push_back(mark);
-	pupilsCoockies.push_back(0);
+	pupilsCoockies.push_back(1);
+}
+
+void GreedyTeacher::CountCoockiesBrute()
+{
+	pupilsCoockies[0] = 1;
+
+	for (size_t i = 1; i < pupilsNo; ++i)
+	{
+		if (pupilsMarks[i] > pupilsMarks[i - 1])
+			pupilsCoockies[i] = pupilsCoockies[i - 1] + 1;
+
+		if (pupilsMarks[i] == pupilsMarks[i - 1])
+			pupilsCoockies[i] = pupilsCoockies[i - 1];
+
+		if (pupilsMarks[i] < pupilsMarks[i - 1])
+		{
+			pupilsCoockies[i] = 1;
+
+			for (long it = i - 1; it >= 0; --it)
+			{
+				if (pupilsCoockies[it] == pupilsCoockies[it + 1] && pupilsMarks[it] != pupilsMarks[it + 1])
+					++pupilsCoockies[it];
+
+				if (pupilsMarks[it] == pupilsMarks[it + 1])
+					pupilsCoockies[it] = pupilsCoockies[it + 1];
+			}
+		}
+	}
 }
 
 void GreedyTeacher::CountCoockies()
@@ -29,24 +57,13 @@ void GreedyTeacher::CountCoockies()
 
 void GreedyTeacher::GiveCoockies()
 {
-	pupilsCoockies[0] = 1;
-
 	for (size_t i = 1; i < pupilsNo; ++i)
 	{
-		if (IsLocalMinimum(i))
-		{
-			pupilsCoockies[i] = 1;
-			continue;
-		}
-
 		if (pupilsMarks[i] > pupilsMarks[i-1])
 			pupilsCoockies[i] = pupilsCoockies[i-1] + 1;
 
 		if (pupilsMarks[i] == pupilsMarks[i-1])
 			pupilsCoockies[i] = pupilsCoockies[i-1];
-
-		if (pupilsMarks[i] < pupilsMarks[i-1])
-			pupilsCoockies[i] = std::max(pupilsCoockies[i-1] - 1, (size_t)1);
 	}
 }
 
@@ -54,28 +71,11 @@ void GreedyTeacher::GiveCoockiesReverse()
 {
 	for (size_t i = pupilsNo - 2; i >= 0; --i)
 	{
-		if (IsLocalMinimum(i))
-		{
-			pupilsCoockies[i] = 1;
-
-			if (i != 0)
-				continue;
-			else
-				break;
-		}
-
-		size_t tempCoockies;
-
 		if (pupilsMarks[i] > pupilsMarks[i+1])
-			tempCoockies = pupilsCoockies[i+1] + 1;
+			pupilsCoockies[i] = std::max(pupilsCoockies[i], pupilsCoockies[i+1] + 1);
 
 		if (pupilsMarks[i] == pupilsMarks[i+1])
-			tempCoockies = pupilsCoockies[i+1];
-
-		if (pupilsMarks[i] < pupilsMarks[i+1])
-			tempCoockies = std::max(pupilsCoockies[i+1] - 1, (size_t)1);
-
-		pupilsCoockies[i] = std::max(tempCoockies, pupilsCoockies[i]);
+			pupilsCoockies[i] = pupilsCoockies[i+1];
 
 		if (i == 0)
 			break;
