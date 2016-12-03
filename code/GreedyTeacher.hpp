@@ -20,13 +20,10 @@ public:
 
 private:
 	size_t FindLocalMin(size_t begin);
-	void GiveCoockies();
-	void GiveCoockiesReverse();
 	bool CorrectPupilsNo();
 	bool IsLocalMinimum(size_t index);
 
 	const size_t pupilsNo;
-	bool calculated;
 	long coockies;
 	vector64_t pupilsMarks;
 	vector64_t pupilsCoockies;

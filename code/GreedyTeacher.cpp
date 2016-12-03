@@ -2,7 +2,7 @@
 #include <algorithm>
 
 GreedyTeacher::GreedyTeacher(size_t pupilsNo)
-	:pupilsNo(pupilsNo), calculated(false)
+	:pupilsNo(pupilsNo)
 {
 	pupilsMarks.reserve(pupilsNo);
 	pupilsCoockies.reserve(pupilsNo);
@@ -32,7 +32,7 @@ void GreedyTeacher::CountCoockiesBrute()
 
 			for (long it = i - 1; it >= 0; --it)
 			{
-				if (pupilsCoockies[it] == pupilsCoockies[it + 1] && pupilsMarks[it] != pupilsMarks[it + 1])
+				if (pupilsCoockies[it] == pupilsCoockies[it + 1] && pupilsMarks[it] > pupilsMarks[it + 1])
 					++pupilsCoockies[it];
 
 				if (pupilsMarks[it] == pupilsMarks[it + 1])
@@ -40,23 +40,16 @@ void GreedyTeacher::CountCoockiesBrute()
 			}
 		}
 	}
+
+	coockies = 0;
+	for (auto i : pupilsCoockies)
+		coockies += i;
 }
 
 void GreedyTeacher::CountCoockies()
 {
-	GiveCoockies();
-	GiveCoockiesReverse();
-
 	coockies = 0;
 
-	for (auto i : pupilsCoockies)
-		coockies += i;
-
-	calculated = true;
-}
-
-void GreedyTeacher::GiveCoockies()
-{
 	for (size_t i = 1; i < pupilsNo; ++i)
 	{
 		if (pupilsMarks[i] > pupilsMarks[i-1])
@@ -65,10 +58,7 @@ void GreedyTeacher::GiveCoockies()
 		if (pupilsMarks[i] == pupilsMarks[i-1])
 			pupilsCoockies[i] = pupilsCoockies[i-1];
 	}
-}
 
-void GreedyTeacher::GiveCoockiesReverse()
-{
 	for (size_t i = pupilsNo - 2; i >= 0; --i)
 	{
 		if (pupilsMarks[i] > pupilsMarks[i+1])
@@ -79,12 +69,14 @@ void GreedyTeacher::GiveCoockiesReverse()
 
 		if (i == 0)
 			break;
+
+		coockies += pupilsCoockies[i];
 	}
 }
 
 size_t GreedyTeacher::GetCoockies()
 {
-	if (calculated)
+	if (coockies != 0)
 		return coockies;
 
 	CountCoockies();

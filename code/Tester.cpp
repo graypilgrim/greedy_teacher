@@ -52,16 +52,24 @@ void Tester::RunAutomaticTests()
 		long randDelta = CalculateDelta();
 		size_t pupilsNo = testSize + randDelta;
 		GreedyTeacher gt(pupilsNo);
+		GreedyTeacher gtBrute(pupilsNo);
 
 		for (size_t j = 0; j < pupilsNo; ++j)
 		{
 			size_t mark = rand() % maxMark + 1;
+			std::cout << mark << " ";
 			gt.AddPupil(mark);
+			gtBrute.AddPupil(mark);
 		}
+		std::cout << std::endl;
 
 		auto solvingTime = MeasureSolvingTime(gt);
 		testsSumTime += solvingTime;
 		PrintFormatedResult(gt, solvingTime, i);
+		gt.PrintCoockies();
+
+		gtBrute.CountCoockiesBrute();
+		gtBrute.PrintCoockies();
 	}
 
 	std::cout << "Test suite mean time: " << testsSumTime/testsNo << std::endl;
