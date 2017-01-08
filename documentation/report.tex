@@ -1,7 +1,7 @@
 \documentclass{article}
 \usepackage{polski}
 \usepackage[utf8]{inputenc}
-\usepackage{geometry}
+\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
 \usepackage{secdot}
 \sectiondot{subsection}
 \usepackage{scrextend}
@@ -104,38 +104,72 @@ return result;
 
 		\end{lstlisting}
 
-	% \subsection{Złożoność pamięciowa}
-	% Przyjmując, że ocena jednego ucznia oraz ilość ciastek, jaką dostaje, zajmują jedną komórkę pamięci, algorytm posiada złożoność pamięciową określoną wzorem:
-	% \begin{align*}
-	% 	M(n) = 2n
-	% \end{align*}
-	%
-	% \subsection{Złożoność czasowa}
-	% Operacją podstawową algorytmu jest wykonanie obliczeń na pojedynczej komórce ciągu wejściowego lub pomocniczego. Wobec tego złożoność czasowa wynosi:
-	% \begin{align*}
-	% 	T(n) = 3n
-	% \end{align*}
-	% Zliczanie ciastek mogłoby zostać zoptymalizowane i włączone w dwie poprzednie pętle, jednak spowodowałoby to, że kod stałby się mniej czytelny.
-	%
-	%
-	% \section{Przypadki trywialne}
-	%
-	% \subsection{Ciąg stały}
-	%
-	% Jeśli wszystkie dzieci otrzymały taką samą ocenę, to wynikiem działania algorytmu jest:
-	% \begin{align*}
-	% 	n
-	% \end{align*}
-	%
-	% \subsection{Ciąg malejący lub rosnący}
-	%
-	% Jeśli oceny dzieci układają się w ciąg rosnący lub malejący, to wynikiem działania algorytmu jest:
-	% \begin{align*}
-	% 	\displaystyle\sum_{i=1}^{n} i
-	% \end{align*}
-	%
-	% \section{Testowanie algorytmu}
-	%
+	\subsection{Złożoność pamięciowa}
+	Przyjmując, że ocena jednego ucznia oraz ilość ciastek, jaką dostaje, zajmują jedną komórkę pamięci, algorytm posiada złożoność pamięciową określoną wzorem:
+	\begin{align*}
+		M(n) = 2n
+	\end{align*}
+
+	\subsection{Złożoność czasowa}
+	Operacją podstawową algorytmu jest wykonanie obliczeń na pojedynczej komórce ciągu wejściowego lub pomocniczego. Wobec tego złożoność czasowa wynosi:
+	\begin{align*}
+		T(n) = 2n
+	\end{align*}
+
+
+	\section{Przypadki trywialne}
+
+	\subsection{Ciąg stały}
+
+	Jeśli wszystkie dzieci otrzymały taką samą ocenę, to wynikiem działania algorytmu jest:
+	\begin{align*}
+		n
+	\end{align*}
+
+	\subsection{Ciąg malejący lub rosnący}
+
+	Jeśli oceny dzieci układają się w ciąg rosnący lub malejący, to wynikiem działania algorytmu jest:
+	\begin{align*}
+		\displaystyle\sum_{i=1}^{n} i
+	\end{align*}
+
+	\section{Porównanie złożoności teoretycznej z eksperymentalną}
+	W celu porównania zależności posłużono się zależnością:
+	\begin{align*}
+		q(n) = \frac{t(n)}{cT(n)}
+	\end{align*}
+	gdzie $t(n)$ rzeczywisty czas obliczeń, \\
+	$T(n)$ wartość teoretyczna, \\
+	$c$ stała wyliczona na podstawie mediany. \\
+	W tym przypadku:
+	\begin{align*}
+		c = \frac{261}{4000} = 0,06525
+	\end{align*}
+
+	\begin{center}
+		\begin{tabular}{c c c}
+			\toprule
+				$n$ & $t(n) [\mu s]$ & $q(n) $\\
+			\midrule
+				10 & 9 & 13,8 \\
+				100 & 29 & 4,44 \\
+				500 & 85 & 2,61 \\
+				1000 & 87 & 1,33 \\
+			\midrule
+				4000 & 261 & 1,0 \\
+			\midrule
+				8000 & 513 & 0,98 \\
+				20000 & 1474 & 1,13 \\
+				40000 & 2498 & 0,96 \\
+				100000 & 7412 & 1,16 \\
+			\bottomrule
+		\end{tabular}
+
+		\vspace{3cm}
+		\includegraphics[width=\textwidth]{plot.png}
+	\end{center}
+
+
 	% \subsection{Maszyna}
 	% \begin{center}
 	% 	\begin{tabular}{c c}

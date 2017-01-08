@@ -29,14 +29,13 @@ void Tester::RunManualTests()
 			gtBrute.AddPupil(mark);
 		}
 
-		std::cout << "Dynamic algorithm: " << std::endl;
 		auto solvingTime = MeasureSolvingTime(gt);
-		PrintFormatedResult(gt, solvingTime, i);
-		gt.PrintCoockies();
-
-		std::cout << "Brute algorithm: " << std::endl;
 		gtBrute.CountCoockiesBrute();
-		gtBrute.PrintCoockies();
+		PrintFormatedResult(gt, solvingTime, i);
+		gt.PrintMarks();
+		gt.PrintCoockies();
+		CheckCorrectness(gt, gtBrute);
+		std::cout << std::endl;
 	}
 }
 
@@ -57,19 +56,16 @@ void Tester::RunAutomaticTests()
 		for (size_t j = 0; j < pupilsNo; ++j)
 		{
 			size_t mark = rand() % maxMark + 1;
-			std::cout << mark << " ";
 			gt.AddPupil(mark);
 			gtBrute.AddPupil(mark);
 		}
-		std::cout << std::endl;
 
 		auto solvingTime = MeasureSolvingTime(gt);
 		testsSumTime += solvingTime;
-		PrintFormatedResult(gt, solvingTime, i);
-		gt.PrintCoockies();
-
 		gtBrute.CountCoockiesBrute();
-		gtBrute.PrintCoockies();
+		PrintFormatedResult(gt, solvingTime, i);
+		CheckCorrectness(gt, gtBrute);
+		std::cout << std::endl;
 	}
 
 	std::cout << "Test suite mean time: " << testsSumTime/testsNo << std::endl;
@@ -103,6 +99,23 @@ void Tester::PrintFormatedResult(GreedyTeacher &gt, long solvingTime, size_t tes
 {
 	std::cout << ">>Test " << testNo;
 	std::cout << "\tTest size: " << gt.GetPupilsNo();
-	std::cout << "\tResult: " << gt.GetCoockies();
+	std::cout << "\tResult: " << gt.GetCoockiesNo();
 	std::cout << "\tSolving time: " << solvingTime  << " us" << std::endl;
+}
+
+void Tester::CheckCorrectness(GreedyTeacher &gt, GreedyTeacher &gtBrute)
+{
+	std::vector<size_t> coockies = gt.GetCoockies();
+	std::vector<size_t> coockiesBrute = gtBrute.GetCoockies();
+
+	for (size_t i = 0; i < gt.GetPupilsNo(); ++i)
+	{
+		if (coockies[i] != coockiesBrute[i])
+		{
+			std::cout << "Solution incorrect." << std::endl;
+			break;
+		}
+	}
+
+	std::cout << "Solution correct." << std::endl;
 }

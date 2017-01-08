@@ -1,9 +1,10 @@
 #ifndef TESTER_HPP_
 #define TESTER_HPP_
 
-#include "GreedyTeacher.hpp"
 #include <chrono>
 #include <ctime>
+
+#include "GreedyTeacher.hpp"
 
 class Tester
 {
@@ -18,6 +19,7 @@ private:
 	void RunAutomaticRandomTest();
 	long CalculateDelta();
 	void PrintFormatedResult(GreedyTeacher &gt, long solvingTime, size_t testNo);
+	void CheckCorrectness(GreedyTeacher &gt, GreedyTeacher &gtBrute);
 
 	size_t testsNo;
 	size_t testSize;

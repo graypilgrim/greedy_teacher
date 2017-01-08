@@ -74,13 +74,18 @@ void GreedyTeacher::CountCoockies()
 	}
 }
 
-size_t GreedyTeacher::GetCoockies()
+size_t GreedyTeacher::GetCoockiesNo()
 {
 	if (coockies != 0)
 		return coockies;
 
 	CountCoockies();
 	return coockies;
+}
+
+vec GreedyTeacher::GetCoockies()
+{
+	return pupilsCoockies;
 }
 
 void GreedyTeacher::PrintMarks()
@@ -110,18 +115,6 @@ size_t GreedyTeacher::GetPupilsNo()
 	return pupilsNo;
 }
 
-size_t GreedyTeacher::FindLocalMin(size_t begin)
-{
-	if (begin == 0 && pupilsMarks[begin] < pupilsMarks[begin + 1])
-		return begin;
-
-	for (size_t i = begin; i < pupilsNo; ++i)
-		if (pupilsMarks[i] < pupilsMarks[i + 1] && pupilsMarks[i] <= pupilsMarks[i - 1])
-			return i;
-
-	return pupilsNo;
-}
-
 bool GreedyTeacher::CorrectPupilsNo()
 {
 	if (pupilsMarks.size() != pupilsNo) {
@@ -130,18 +123,4 @@ bool GreedyTeacher::CorrectPupilsNo()
 	}
 
 	return true;
-}
-
-bool GreedyTeacher::IsLocalMinimum(size_t index)
-{
-	if (index == 0 && pupilsMarks[index] < pupilsMarks[index + 1])
-		return true;
-
-	if (index == (pupilsNo - 1) && pupilsMarks[index] <= pupilsMarks[index - 1])
-		return true;
-
-	if (pupilsMarks[index] < pupilsMarks[index + 1] && pupilsMarks[index] < pupilsMarks[index - 1])
-		return true;
-
-	return false;
 }
