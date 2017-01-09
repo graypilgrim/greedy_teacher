@@ -112,10 +112,10 @@ void Tester::CheckCorrectness(GreedyTeacher &gt, GreedyTeacher &gtBrute)
 	{
 		if (coockies[i] != coockiesBrute[i])
 		{
-			std::cout << "Solution incorrect." << std::endl;
+			std::cout << "\033[1;31m" << "Solution incorrect." << "\033[0m" << std::endl;
 			break;
 		}
 	}
 
-	std::cout << "Solution correct." << std::endl;
+	std::cout << "\033[1;32m" << "Solution correct." << "\033[0m" << std::endl;
 }
