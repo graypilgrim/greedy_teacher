@@ -45,7 +45,7 @@ void Tester::RunAutomaticTests()
 
 	std::cout << "Automatic tests suite\n" << std::endl;
 
-	long long testsSumTime = 0;
+	uint64_t testsSumTime = 0;
 	for (size_t i = 0; i < testsNo; ++i)
 	{
 		long randDelta = CalculateDelta();
@@ -90,9 +90,8 @@ long Tester::CalculateDelta()
 		return 1;
 
 	long changeRange = testSize / 10;
-	long delta = (rand() % changeRange) - (changeRange / 2);
 
-	return delta;
+	return (rand() % changeRange) - (changeRange / 2);
 }
 
 void Tester::PrintFormatedResult(GreedyTeacher &gt, long solvingTime, size_t testNo)

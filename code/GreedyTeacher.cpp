@@ -16,8 +16,6 @@ void GreedyTeacher::AddPupil(size_t mark)
 
 void GreedyTeacher::CountCoockiesBrute()
 {
-	pupilsCoockies[0] = 1;
-
 	for (size_t i = 1; i < pupilsNo; ++i)
 	{
 		if (pupilsMarks[i] > pupilsMarks[i - 1])
@@ -28,15 +26,13 @@ void GreedyTeacher::CountCoockiesBrute()
 
 		if (pupilsMarks[i] < pupilsMarks[i - 1])
 		{
-			pupilsCoockies[i] = 1;
-
-			for (long it = i - 1; it >= 0; --it)
+			for (size_t j = i - 1; j >= 0 && j < i; --j)
 			{
-				if (pupilsCoockies[it] == pupilsCoockies[it + 1] && pupilsMarks[it] > pupilsMarks[it + 1])
-					++pupilsCoockies[it];
+				if (pupilsCoockies[j] == pupilsCoockies[j + 1] && pupilsMarks[j] > pupilsMarks[j + 1])
+					++pupilsCoockies[j];
 
-				if (pupilsMarks[it] == pupilsMarks[it + 1])
-					pupilsCoockies[it] = pupilsCoockies[it + 1];
+				if (pupilsMarks[j] == pupilsMarks[j + 1])
+					pupilsCoockies[j] = pupilsCoockies[j + 1];
 			}
 		}
 	}
@@ -59,7 +55,7 @@ void GreedyTeacher::CountCoockies()
 			pupilsCoockies[i] = pupilsCoockies[i-1];
 	}
 
-	for (size_t i = pupilsNo - 2; i >= 0; --i)
+	for (size_t i = pupilsNo - 2; i >= 0 && i < pupilsNo; --i)
 	{
 		if (pupilsMarks[i] > pupilsMarks[i+1])
 			pupilsCoockies[i] = std::max(pupilsCoockies[i], pupilsCoockies[i+1] + 1);
@@ -67,19 +63,12 @@ void GreedyTeacher::CountCoockies()
 		if (pupilsMarks[i] == pupilsMarks[i+1])
 			pupilsCoockies[i] = pupilsCoockies[i+1];
 
-		if (i == 0)
-			break;
-
 		coockies += pupilsCoockies[i];
 	}
 }
 
 size_t GreedyTeacher::GetCoockiesNo()
 {
-	if (coockies != 0)
-		return coockies;
-
-	CountCoockies();
 	return coockies;
 }
 

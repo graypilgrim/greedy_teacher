@@ -16,7 +16,6 @@ public:
 
 private:
 	long MeasureSolvingTime(GreedyTeacher &gt);
-	void RunAutomaticRandomTest();
 	long CalculateDelta();
 	void PrintFormatedResult(GreedyTeacher &gt, long solvingTime, size_t testNo);
 	void CheckCorrectness(GreedyTeacher &gt, GreedyTeacher &gtBrute);
@@ -24,7 +23,6 @@ private:
 	size_t testsNo;
 	size_t testSize;
 	size_t maxMark;
-
 };
 
 #endif

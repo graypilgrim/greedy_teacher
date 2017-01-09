@@ -38,7 +38,7 @@ void Interpreter::AnalizeCommands()
 			break;
 
 		case '?':
-			exit(-1);
+			exit(1);
 
 		default:
 			std::cout << std::endl;
@@ -50,11 +50,17 @@ void Interpreter::AnalizeCommands()
 	{
 		std::cout << "If automatic tests are chosen, specify all parameters"<< std::endl;
 		std::cout << "Use \"-h\" to see more details" << std::endl;
-		exit(-1);
+		exit(1);
 	}
 
 	if (pupilsNo > CHILDREN_LIMIT)
 		std::cout << "WARNING: Results may be misleading. Amount of children is too high" << std::endl;
+
+	if (testsNo < 0 || pupilsNo < 0 || maxMark < 0)
+	{
+		std::cout << "Invalid parameters. All should be positive" << std::endl;
+		exit(1);
+	}
 }
 
 void Interpreter::RunTester()
@@ -77,6 +83,6 @@ void Interpreter::PrintHelp()
 	std::cout << "Usage: greedy-teacher [OPTION]... [DATA]" << std::endl;
 	std::cout << "-h\t\tdisplay this help message" << std::endl;
 	std::cout << "-a=TESTS_NO\trun TESTS_NO automatic tests" << std::endl;
-	std::cout << "-c=CHILDREN_NO\tspecify number of children for automatic tests" << std::endl;
-	std::cout << "-r=MAX_RESULT\tspecify the highest mark that child can get" << std::endl;
+	std::cout << "-c=CHILDREN_NO\tspecify number of children for automatic tests (positive value)" << std::endl;
+	std::cout << "-r=MAX_RESULT\tspecify the highest mark that child can get (positive value)" << std::endl;
 }
