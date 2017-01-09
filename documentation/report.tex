@@ -17,7 +17,7 @@
 \graphicspath{ {./} }
 \lstset{language=Pascal}
 
-\title{\vspace{7cm}\LARGE Analiza algorytmów\\semestr 16Z\\Zadanie 2}
+\title{\vspace{7cm}\LARGE Analiza algorytmów\\semestr 16Z\\Zadanie 2.}
 \author{\LargeŁukasz Wlazły\\nr albumu: 269365}
 \date{}
 
@@ -42,7 +42,6 @@
 		\item W poniższych listingach przyjęto, że tablice są indeksowane od 1 do n.
 	\end{enumerate}
 
-	\newpage
 	\subsection{Rozwiązanie brute force}
 		Liczba ciastek, jaką dostanie każde z dzieci, zależy w ogólnym przypadku od ocen wszystkich pozostałych dzieci. Rozwiązanie naiwne polega na ciągłym aktualizowaniu informacji o liczbie ciastek wśród dzieci. W ten sposób po każdym przydzieleniu ciastka i-temu dziecku, liczba ciastek dzieci w~przedziale $[1, i]$ spełnia warunki zadania. Złożoność takiego rozwiązania wynosi $O(n^2)$.
 		\begin{lstlisting}[tabsize=2,frame=single]
@@ -71,7 +70,6 @@ for i = 1 to n do:
 
 return result;
 		\end{lstlisting}
-
 	\newpage
 	\subsection{Rozwiązanie optymalne}
 		W tym podejściu liczbę ciastek i-tego dziecka rozważamy jako maksimum iteracji lewo- i prawostronnej. Jeśli, idąc z lewej strony, zawsze przydzielamy minimalną liczbę ciastek, a następnie zrobimy to samo idąc z~prawej strony, to finalnie maksimum z tych dwóch przebiegów będzie minimalną liczbą ciastek, jaką powinno dostać dziecko. Złożoność tego rozwiązania wynosi $O(n)$.
@@ -116,7 +114,7 @@ return result;
 		T(n) = 2n
 	\end{align*}
 
-
+	\newpage
 	\section{Przypadki trywialne}
 
 	\subsection{Ciąg stały}
@@ -138,16 +136,14 @@ return result;
 	\begin{align*}
 		q(n) = \frac{t(n)}{cT(n)}
 	\end{align*}
-	gdzie $t(n)$ rzeczywisty czas obliczeń, \\
-	$T(n)$ wartość teoretyczna, \\
-	$c$ stała wyliczona na podstawie mediany. \\
+	gdzie $t(n)$ to rzeczywisty czas obliczeń, $T(n)$ to wartość teoretyczna, a $c$ stała wyliczona na podstawie mediany. \\
 	W tym przypadku:
 	\begin{align*}
 		c = \frac{261}{4000} = 0,06525
 	\end{align*}
 
 	\begin{center}
-		\begin{tabular}{c c c}
+		\begin{tabular}{l l l}
 			\toprule
 				$n$ & $t(n) [\mu s]$ & $q(n) $\\
 			\midrule
@@ -164,49 +160,8 @@ return result;
 				100000 & 7412 & 1,16 \\
 			\bottomrule
 		\end{tabular}
-
-		\vspace{3cm}
-		\includegraphics[width=\textwidth]{plot.png}
 	\end{center}
 
+	\includegraphics[width=\textwidth]{plot.png}
 
-	% \subsection{Maszyna}
-	% \begin{center}
-	% 	\begin{tabular}{c c}
-	% 		\toprule
-	% 		Procesor & Intel Core i5 6200U \\
-	% 		\midrule
-	% 		Pamięć & 8GB \\
-	% 		\midrule
-	% 		System Operacyjny & Arch Linux\\
-	% 		\bottomrule
-	% 	\end{tabular}
-	% \end{center}
-	%
-	% \subsection{Założenia}
-	% Złożoność obliczeniowa algorytmu implikuje wniosek, że n-krotny przyrost liczby dzieci powinien spodować n-krotny wzrost czasu rozwiązywania problemu.
-	% W każdym przypadku zostało uruchomione 1000 testów. Maksymalna ocena, jaką mógł otrzymać uczeń było 400.
-	% Dla każdego testu liczba dzieci liczba dzieci jest losowana z przedziału [m - 5\%; m + 5\%].
-	% Wszystkie zestawy testów zostały wykonane jako procesy jednowątkowe.
-	%
-	%
-	% \subsection{Testy}
-	%
-	% \begin{center}
-	% 	\begin{tabular}{c c}
-	% 		\toprule
-	% 			Ilość dzieci & Średni czas [$\mu s$] \\
-	% 		\midrule
-	% 			100 & 21 \\
-	% 			1 000 & 101 \\
-	% 			10 000 & 784 \\
-	% 			100 000 & 7789 \\
-	% 			1 000 000 & 76235 \\
-	% 			8 000 000 & 612973 \\
-	% 		\bottomrule
-	% 	\end{tabular}
-	%
-	% 	\vspace{3cm}
-	% 	\includegraphics[width=\textwidth]{test_plot.png}
-	% \end{center}
 \end{document}
